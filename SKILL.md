@@ -1,6 +1,6 @@
 ---
 name: escala
-description: Escala — software completo pra rodar operacao de low ticket. Mineracao de ofertas escaladas, modelagem de funil, criativos, cadastro em gateway e otimizacao de campanhas. Rodar quando o usuario digitar /escala.
+description: Escala — software completo pra rodar operacao de low ticket. Mineracao de ofertas escaladas, modelagem de funil, criativos e otimizacao de campanhas. Rodar quando o usuario digitar /escala.
 allowed-tools: [WebFetch, WebSearch, Read, Write, Edit, Glob, Grep, Bash, Agent, AskUserQuestion, Skill, mcp__claude_ai_Higgsfield__*, mcp__claude_ai_Utmify__*]
 ---
 
@@ -24,9 +24,8 @@ REGRA ABSOLUTA: assim que o usuario digitar `/escala`, a PRIMEIRA e UNICA coisa 
   [4] Gerar entregavel
   [5] Modelar funil
   [6] Gerar criativos
-  [7] Cadastrar produto
-  [8] Meta Ads
-  [9] Configuracoes
+  [7] Meta Ads
+  [8] Configuracoes
 
 Digite o numero:
 ```
@@ -39,7 +38,7 @@ Quando qualquer fluxo terminar, perguntar se quer voltar ao menu ou sair.
 
 ## [1] SETUP & DIAGNOSTICO
 
-Ao selecionar [1], redirecionar direto pro modulo [9] Configuracoes > [1] Diagnostico completo.
+Ao selecionar [1], redirecionar direto pro modulo [8] Configuracoes > [1] Diagnostico completo.
 Mesmo fluxo — evita duplicacao.
 
 ---
@@ -60,7 +59,6 @@ MINERACAO DE OFERTAS
 Metodo:
   [A] Reclame Aqui (gratis — scrapa gateways BR)
   [B] Biblioteca de Anuncios (Meta — busca visual)
-  [C] RatoAds (premium — requer conta)
 
 Qual metodo?
 ```
@@ -80,11 +78,10 @@ Gateways de pagamento recebem reclamacoes de compradores. Quanto mais reclamacao
 
 **Pre-requisitos:** Edge instalado + dev-browser instalado (`npm install -g dev-browser`)
 
-#### Gateways (8 foco low ticket)
+#### Gateways (7 foco low ticket)
 
 | Gateway | Slug |
 |---------|------|
-| Wiapy | `wiapy` |
 | GGCheckout | `ggcheckout` |
 | Yampi | `yampi` |
 | Cakto | `cakto-pay` |
@@ -106,7 +103,7 @@ Quantas paginas por gateway? (2-20) [padrao: 10]
 Max detalhes por gateway? (5-30) [padrao: 15]
 > [resposta ou Enter]
 
-Gateways (separar por virgula, ou Enter pra todos os 8):
+Gateways (separar por virgula, ou Enter pra todos):
 > [resposta ou Enter]
 
 Tempo estimado: ~[X] minutos
@@ -120,8 +117,8 @@ python minerador-reclameaqui.py [gateways] [paginas] [max_detalhes]
 ```
 
 Exemplos:
-- `python minerador-reclameaqui.py` — todos os 8 gateways
-- `python minerador-reclameaqui.py wiapy,cakto,kirvano 10 15` — 3 especificos
+- `python minerador-reclameaqui.py` — todos os gateways suportados
+- `python minerador-reclameaqui.py cakto,kirvano 10 15` — 2 especificos
 
 O script:
 1. Sobe Edge headless automaticamente
@@ -132,7 +129,7 @@ O script:
 6. Salva JSON em `./mineracao/`
 7. Mata Edge no final
 
-Tempo: ~2-3 min por gateway (8 gateways = ~20 min)
+Tempo: ~2-3 min por gateway (varia conforme a quantidade selecionada)
 
 #### Passo 3 — Ler resultados e mostrar
 
@@ -141,7 +138,7 @@ Ler o JSON gerado e agrupar por produto. Mostrar rankeado por frequencia:
 ```
 PRODUTOS ENCONTRADOS — RECLAME AQUI
 =====================================
-8 gateways | [X] reclamacoes | [X]s
+[X] gateways | [X] reclamacoes | [X]s
 
 #  | Recl. | Produto                        | Gateway    | Preco   | Nicho
 ---|-------|-------------------------------|-----------|---------|------------------
@@ -332,62 +329,6 @@ Quando encontrar uma oferta boa:
 
 ---
 
-### Metodo C — RatoAds
-
-#### Logica
-O RatoAds ja tem interface visual completa com swipe, filtros, analise de criativos e metricas. Melhor abrir direto no navegador do que replicar no terminal.
-
-#### Fluxo
-
-**Se NAO tem credenciais no config:**
-
-```
-MINERACAO VIA RATOADS
-=====================
-
-Voce ainda nao conectou sua conta RatoAds.
-
-Como aluno do Curso Escala, voce tem
-direito a um trial exclusivo: 3 mineracoes, 3 analises
-e 3 slots de rastreamento por 30 dias.
-
-  [1] Ativar trial do curso (3/3/3 por 30 dias)
-  [2] Ja tenho conta — configurar agora
-  [3] Quero assinar — abrir ratoads.com.br
-
-[0] Voltar ao menu
-```
-
-Se [1] — Ativar trial:
-Pedir email + codigo. POST `https://ratoads.com.br/api/trial/curso`.
-200 = conta criada, salvar no config. 403 = codigo invalido. 409 = email ja existe.
-
-Se [2] — Ja tem conta:
-Pedir email + senha. Salvar em `./config-escala.json`.
-
-Se [3] — Assinar:
-Mostrar URL ratoads.com.br e planos (Starter R$57,90/mes, Premium R$147,90/tri).
-
-**Se TEM credenciais no config:**
-
-1. Autenticar via POST `https://ratoads.com.br/api/auth/login`
-2. Se OK, abrir `https://ratoads.com.br` no navegador via dev-browser
-3. Mostrar:
-
-```
-RatoAds aberto no navegador!
-Plano: [plano] | [nome]
-
-Use a interface do RatoAds pra minerar, analisar e rastrear ofertas.
-
-Quando encontrar uma oferta boa:
-  -> Copie o nome da pagina ou link
-  -> Volte aqui e rode [3] Analisar & Definir produto
-
-[0] Voltar ao menu
-```
-
-Se dev-browser nao disponivel, mostrar URL pra copiar.
 
 ---
 
@@ -1478,7 +1419,7 @@ ESTRUTURA DA PAGINA
 
 **Placeholders:**
 - Imagens: usar placeholder descritivo no src (ex: `src="assets/hero.jpg"`) + comentario HTML dizendo o que colocar
-- Links de checkout: usar `#checkout-premium` e `#checkout-basico` como placeholder — o usuario substitui pelo link da Wiapy/gateway
+- Links de checkout: usar `#checkout-premium` e `#checkout-basico` como placeholder — o usuario substitui pelo link do gateway de pagamento escolhido
 - Pixel: deixar espaco comentado pra Meta Pixel e Utmify
   ```html
   <!-- META PIXEL: cole seu pixel aqui -->
@@ -1525,8 +1466,8 @@ ESTRUTURA FINAL:
 PLACEHOLDERS PRA SUBSTITUIR:
   - [ ] Imagem hero: trocar assets/hero.jpg pela sua
   - [ ] Depoimentos: trocar por depoimentos reais
-  - [ ] Link checkout premium: #checkout-premium → link da Wiapy
-  - [ ] Link checkout basico: #checkout-basico → link da Wiapy
+  - [ ] Link checkout premium: #checkout-premium → link do gateway de pagamento escolhido
+  - [ ] Link checkout basico: #checkout-basico → link do gateway de pagamento escolhido
   - [ ] Meta Pixel: colar ID do pixel
   - [ ] Utmify Pixel: colar ID do pixel
 
@@ -1820,362 +1761,14 @@ Menor risco. Sobe esse primeiro.
 
 ---
 
-## [7] CADASTRAR PRODUTO
-
-### Objetivo
-Entrar na Wiapy via dev-browser, criar o produto do zero, configurar checkout, order bump, upsell, entregavel, capa, e integrar pixel do Meta Ads + Utmify. Tudo automatizado — o aluno so confirma.
-
-### Pre-requisito
-- Conta na Wiapy (wiapy.com) — o aluno precisa estar logado no Chrome
-- Produto definido no passo [3] (nome, preco, entregavel, bonus, order bump, upsell)
-- Entregavel gerado no passo [4] (o produto digital pronto)
-- Pagina de vendas gerada no passo [5] (link do checkout vai apontar pra ca)
-- Pixel do Meta Ads (ID) e Utmify (ID) — se ja tiver
-
-### Fluxo
-
-Ao selecionar [7], mostrar:
-
-```
-CADASTRAR PRODUTO
-==================
-
-Vou entrar na Wiapy pelo seu navegador e criar tudo automaticamente.
-
-Pre-checklist:
-  [x] Voce esta logado na Wiapy no Chrome? (wiapy.com)
-  [ ] Tem o nome e preco do produto?
-  [ ] Tem imagem de capa? (caminho do arquivo ou vai gerar?)
-  [ ] Tem o entregavel pronto? (PDF, link, area de membros)
-
-  [1] Tudo certo — comecar
-  [2] Preciso configurar algo primeiro
-
-Qual opcao?
-```
-
-Se [2]:
-```
-O que falta?
-  [A] Nao tenho conta na Wiapy — criar agora
-  [B] Nao tenho capa — gerar com IA
-  [C] Nao tenho entregavel pronto
-  [0] Voltar ao menu
-```
-
-Se [A]: abrir wiapy.com via dev-browser e guiar o cadastro.
-Se [B]: gerar prompt de capa pro ChatGPT ou usar Higgsfield generate_image.
-Se [C]: sugerir formatos de entregavel rapido (PDF no Canva, Google Drive, etc).
-
----
-
-### Passo 1 — Coletar dados do produto
-
-Se tem produto definido do [3], puxar automaticamente:
-```
-Dados do produto (do passo [3]):
-  Nome: [nome]
-  Preco principal: R$[XX]
-  Descricao: [descricao curta]
-  Entregavel: [tipo + link/arquivo]
-  Order bump: [nome] — R$[XX]
-  Upsell: [nome] — R$[XX]
-
-Tudo certo? (s/n)
-> [resposta]
-```
-
-Se nao tem dados do [3], perguntar um por um:
-
-```
-DADOS DO PRODUTO
-=================
-
-Nome do produto:
-> [nome]
-
-Preco principal (R$):
-> [preco]
-
-Descricao curta (aparece no checkout):
-> [descricao]
-
-Tipo de entregavel:
-  [1] PDF / arquivo (vou precisar do link ou caminho)
-  [2] Area de membros (link de acesso)
-  [3] Link externo (Google Drive, Notion, etc)
-> [opcao]
-
-Link ou caminho do entregavel:
-> [link/caminho]
-
-Imagem de capa:
-  [1] Ja tenho (caminho do arquivo)
-  [2] Gerar prompt pra criar no ChatGPT
-> [opcao]
-
-Se [1]:
-  Caminho da capa:
-  > [caminho]
-
-Se [2]:
-  Gerando prompt de capa...
-  [mostra prompt otimizado pra gerar capa no ChatGPT — mockup do produto, estilo profissional]
-  Cole no ChatGPT, salve a imagem e me diz o caminho:
-  > [caminho]
-```
-
----
-
-### Passo 2 — Order bump
-
-```
-CONFIGURAR ORDER BUMP
-======================
-
-O order bump e uma oferta extra que aparece no checkout.
-O comprador marca um checkbox e paga junto.
-
-Quer configurar order bump? (s/n)
-> [resposta]
-```
-
-Se sim:
-```
-Nome do bump:
-> [nome]
-
-Preco (R$):
-> [preco]
-
-Descricao curta (1-2 linhas — convence o cara a marcar):
-> [descricao]
-
-Entregavel do bump:
-> [link/caminho]
-
-Capa do bump (caminho ou pular):
-> [caminho ou Enter]
-```
-
----
-
-### Passo 3 — Upsell
-
-```
-CONFIGURAR UPSELL
-==================
-
-O upsell e uma oferta que aparece DEPOIS da compra.
-O cara ja pagou e ve uma oferta especial antes de receber o produto.
-
-Quer configurar upsell? (s/n)
-> [resposta]
-```
-
-Se sim:
-```
-Nome do upsell:
-> [nome]
-
-Preco (R$):
-> [preco]
-
-Descricao:
-> [descricao]
-
-Entregavel:
-> [link/caminho]
-```
-
----
-
-### Passo 4 — Resumo e confirmacao
-
-```
-RESUMO DO PRODUTO
-==================
-
-PRODUTO PRINCIPAL:
-  Nome: [nome]
-  Preco: R$[preco]
-  Descricao: [descricao]
-  Entregavel: [tipo + link]
-  Capa: [arquivo]
-
-ORDER BUMP:
-  [nome] — R$[preco]
-  [descricao]
-
-UPSELL:
-  [nome] — R$[preco]
-
-============================================
-
-Confirma? Vou entrar na Wiapy e criar tudo.
-
-  [1] Sim — criar agora
-  [2] Ajustar algo
-  [0] Cancelar
-
-Qual opcao?
-```
-
----
-
-### Passo 5 — Criar na Wiapy via dev-browser
-
-```
-Abrindo Wiapy no navegador...
-```
-
-Usar dev-browser pra executar o fluxo na Wiapy. Cada acao mostra o progresso:
-
-```
-CRIANDO PRODUTO NA WIAPY
-==========================
-
-[1/8] Abrindo wiapy.com...                    ✓
-[2/8] Navegando pra Produtos > Criar...       ✓
-[3/8] Preenchendo dados do produto...          ✓
-      Nome: [nome]
-      Preco: R$[preco]
-      Descricao: [descricao]
-[4/8] Fazendo upload da capa...                ✓
-[5/8] Configurando entregavel...               ✓
-      Tipo: [tipo]
-      Link: [link]
-[6/8] Configurando order bump...               ✓
-      [nome] — R$[preco]
-[7/8] Configurando upsell...                   ✓
-      [nome] — R$[preco]
-[8/8] Salvando produto...                      ✓
-
-Produto criado!
-```
-
-**Navegacao na Wiapy (passo a passo do dev-browser):**
-
-1. Ir pra `wiapy.com` (verificar se ta logado)
-2. Menu lateral > **Produtos** > botao de criar novo produto
-3. Preencher:
-   - Nome do produto
-   - Descricao
-   - Preco
-   - Upload de capa (imagem)
-4. Configurar entrega:
-   - Tipo de entrega (arquivo/link/area de membros)
-   - Link ou upload do entregavel
-5. Ir em **Checkout** > configurar o checkout do produto
-6. Adicionar order bump (se configurado):
-   - Nome, preco, descricao, entregavel do bump
-7. Adicionar upsell (se configurado)
-8. Salvar tudo
-
-Se algum passo falhar, informar e perguntar se quer tentar de novo ou fazer manual:
-```
-Erro no passo [X]: [descricao do erro]
-
-  [1] Tentar de novo
-  [2] Pular e fazer manualmente
-  [0] Cancelar
-
-Qual opcao?
-```
-
----
-
-### Passo 6 — Configurar webhook (opcional)
-
-```
-WEBHOOK (opcional)
-===================
-
-Quer configurar webhook pra receber eventos de pagamento?
-Util pra: email automatico, dar acesso, remarketing, etc.
-
-  [1] Sim — configurar
-  [2] Nao — pular
-
-Qual opcao?
-```
-
-Se [1]:
-```
-URL do webhook (pra onde a Wiapy manda os eventos):
-> [url]
-
-Token de autenticacao (opcional):
-> [token ou Enter]
-
-Quais eventos ativar?
-  [x] Pagamento aprovado
-  [x] Pagamento estornado
-  [x] Chargeback
-  [ ] Pagamento pendente
-  [ ] Cartao recusado
-  [ ] Carrinho abandonado
-
-Ajusta os marcados e confirma (s/n):
-> [resposta]
-```
-
-Via dev-browser:
-1. Ir em Integracoes > Configurar Webhook
-2. Selecionar o checkout do produto criado
-3. Colar URL do webhook
-4. Colar token (se tiver)
-5. Marcar os eventos
-6. Salvar
-
----
-
-### Passo 7 — Resultado final
-
-```
-PRODUTO PRONTO!
-================
-
-Produto: [nome]
-Preco: R$[preco]
-Order bump: [nome] — R$[preco]
-Upsell: [nome] — R$[preco]
-
-Link do checkout:
-  [URL do checkout na Wiapy — copiar da pagina]
-
-Webhook: [✓ configurado / ✗ nao configurado]
-
-============================================
-
-PROXIMO PASSO:
-  1. Cole o link do checkout na sua pagina de vendas:
-     Substitua #checkout-premium → [link real]
-     Substitua #checkout-basico → [link real do plano basico, se tiver]
-
-  2. Rode [8] Meta Ads > Criar pixel (se ainda nao tem)
-  3. Rode [8] Meta Ads > Criar campanha (subir criativos + configurar tudo)
-  4. Rode [8] Meta Ads > Otimizar quando tiver trafego rodando
-
-============================================
-
-[T] Testar checkout (abre no navegador)
-[L] Copiar link do checkout
-[0] Voltar ao menu
-```
-
-Se [T]: abrir o link do checkout via dev-browser pra conferir se ta tudo certo.
-
----
-
-## [8] META ADS
+## [7] META ADS
 
 ### Objetivo
 Criar pixel, subir campanhas e otimizar via Meta Marketing API. Sem Advantage+, campanha de vendas manual, config baseada no modelo validado do @ogestorsantiago_.
 
 ### Fluxo
 
-Ao selecionar [8], mostrar:
+Ao selecionar [7], mostrar:
 
 ```
 META ADS
@@ -2217,7 +1810,7 @@ Pixel criado!
 
 Proximo passo:
   - Cole o ID no seu site (pagina de vendas + checkout)
-  - Ou rode [5] Cadastrar produto pra configurar na Wiapy
+  - Configure o pixel tambem no checkout do gateway escolhido.
 
 [0] Voltar ao menu
 ```
@@ -2727,14 +2320,14 @@ O que quer fazer?
 
 ---
 
-## [9] CONFIGURACOES
+## [8] CONFIGURACOES
 
 ### Objetivo
 Setup inicial + diagnostico continuo. Na primeira vez, instala tudo que a skill precisa. Nas vezes seguintes, verifica se ta tudo funcionando, mostra status de cada dependencia, e exibe metricas gerais da operacao.
 
 ### Fluxo
 
-Ao selecionar [9], mostrar:
+Ao selecionar [8], mostrar:
 
 ```
 CONFIGURACOES
@@ -2781,9 +2374,7 @@ APIs:
   Apify (scraper Biblioteca)        [?] verificando...
 
 CONTAS:
-  Wiapy (gateway)                   [?] verificando...
   Meta Business (anuncios)          [?] verificando...
-  RatoAds (mineracao premium)       [?] verificando...
 ```
 
 **Como verificar cada item:**
@@ -2796,8 +2387,7 @@ CONTAS:
 6. **MCP Higgsfield:** tentar chamar `balance` — se retornar dados, ta conectado
 7. **MCP Utmify:** tentar chamar `get_dashboards` — se retornar dados, ta conectado
 8. **Apify:** verificar se tem `apify_token` no config-escala.json
-9. **Wiapy:** verificar se consegue acessar wiapy.com via dev-browser (logado?)
-10. **RatoAds:** verificar se tem credenciais no config-escala.json
+9. **Meta Business:** confirmar se a consulta Graph API do item 5 retornou uma conta de anuncios acessivel.
 
 **Resultado:**
 
@@ -2820,16 +2410,14 @@ APIs:
   Apify                             [FALTA] token nao configurado
 
 CONTAS:
-  Wiapy                             [OK] logado como [email]
-  RatoAds                           [FALTA] credenciais nao configuradas
+  Meta Business                     [OK] conta acessivel via Graph API
 
 ============================================
 
-RESUMO: 7/10 OK | 2 faltando | 1 nao verificavel
+RESUMO: 7/9 OK | 1 faltando | 1 nao verificavel
 
 ITENS FALTANDO:
   1. Apify — precisa do token pra scrapar Biblioteca de Anuncios
-  2. RatoAds — precisa de email/senha pra mineracao premium
 
 [I] Instalar/configurar itens faltando agora
 [0] Voltar ao menu
@@ -2853,8 +2441,6 @@ Qual quer configurar?
   [5] MCP Higgsfield
   [6] MCP Utmify
   [7] Apify
-  [8] Wiapy (login)
-  [9] RatoAds (credenciais)
 
 Digite o numero:
 ```
@@ -2974,25 +2560,6 @@ Salvando em config-escala.json...
 Testando conexao...
 ```
 
-**[8] Wiapy:**
-```
-Preciso verificar se voce ta logado na Wiapy no Chrome.
-
-Abrindo wiapy.com...
-```
-Usar dev-browser pra checar. Se nao ta logado, guiar login.
-
-**[9] RatoAds:**
-```
-Conectar sua conta do RatoAds pra mineracao premium.
-
-  [1] Ativar trial do curso (3/3/3 por 30 dias)
-  [2] Ja tenho conta — configurar login
-
-Qual opcao?
-```
-Mesmo fluxo do [1] Minerar > RatoAds.
-
 ---
 
 ### [3] METRICAS DA OPERACAO
@@ -3009,8 +2576,6 @@ Puxando dados...
 
 1. **Meta Ads (MCP):** campanhas ativas, gasto total, vendas, ROAS, CPA
 2. **Utmify (MCP):** faturamento, conversoes, taxa de conversao
-3. **Wiapy:** produtos ativos, vendas recentes (se tiver API, senao pula)
-4. **RatoAds:** creditos restantes, mineracoes usadas
 
 ```
 DASHBOARD GERAL
@@ -3036,11 +2601,6 @@ UTMIFY:
   Ticket medio: R$[XX]
   Top produto: "[nome]" — R$[XX]
 
-RATOADS:
-  Plano: [plano]
-  Mineracoes restantes: [X]/[max]
-  Analises restantes: [X]/[max]
-  Slots radar: [X]/[max]
 
 SAUDE DA OPERACAO:
   [status geral — baseado nos numeros]
@@ -3067,14 +2627,13 @@ RESETAR
 ========
 
 O que quer resetar?
-  [1] Credenciais do RatoAds
-  [2] Token do Apify
-  [3] Tudo (apagar config-escala.json)
+  [1] Token do Apify
+  [2] Tudo (apagar config-escala.json)
 
 Qual opcao?
 ```
 
-Se [3]:
+Se [2]:
 ```
 Isso vai apagar todas as credenciais salvas.
 Voce vai precisar configurar tudo de novo.
@@ -3091,7 +2650,7 @@ Se sim, deletar `./config-escala.json`.
 
 NUNCA verificar config, rodar diagnostico ou usar qualquer ferramenta antes de mostrar o menu. O menu sempre aparece primeiro e instantaneo (ver "Ao iniciar").
 
-O setup de primeira vez NAO e automatico — e a opcao [1] Setup & Diagnostico do menu. Se for a primeira vez do usuario, ele escolhe [1]. O `./config-escala.json` so e lido/criado dentro dos fluxos [1] Setup ou [9] Configuracoes, nunca na abertura.
+O setup de primeira vez NAO e automatico — e a opcao [1] Setup & Diagnostico do menu. Se for a primeira vez do usuario, ele escolhe [1]. O `./config-escala.json` so e lido/criado dentro dos fluxos [1] Setup ou [8] Configuracoes, nunca na abertura.
 
 ---
 

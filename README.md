@@ -1,6 +1,6 @@
 # /escala — Escala
 
-Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao de low ticket digital num software interativo. Mineracao de ofertas escaladas, modelagem de funil, geracao de criativos, cadastro em gateway e otimizacao de campanhas — tudo dentro do terminal.
+Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao de low ticket digital num software interativo. Mineracao de ofertas escaladas, modelagem de funil, geracao de criativos e otimizacao de campanhas — tudo dentro do terminal.
 
 **by [@ogestorsantiago_](https://instagram.com/ogestorsantiago_)**
 
@@ -9,14 +9,13 @@ Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao d
 | Modulo | Descricao |
 |--------|-----------|
 | [1] Setup | Diagnostico de dependencias |
-| [2] Minerar | Reclame Aqui, Biblioteca Meta, RatoAds |
+| [2] Minerar | Reclame Aqui e Biblioteca Meta |
 | [3] Analisar | Analise completa de oferta + definir produto |
 | [4] Entregavel | Gera PDF/pack/planilha/simulado completo |
 | [5] Funil | Modela pagina de vendas a partir do concorrente |
 | [6] Criativos | Scrapa ads reais, transcreve, gera 7 criativos modelados |
-| [7] Gateway | Cadastra produto na Wiapy automaticamente |
-| [8] Meta Ads | Cria pixel, campanha e otimiza (metodo @ogestorsantiago_) |
-| [9] Config | Diagnostico, instalacao, metricas |
+| [7] Meta Ads | Cria pixel, campanha e otimiza (metodo @ogestorsantiago_) |
+| [8] Config | Diagnostico, instalacao, metricas |
 
 ## Como instalar (passo a passo)
 
@@ -56,14 +55,14 @@ cp config-escala.example.json config-escala.json
 
 ## Minerador Reclame Aqui
 
-O `minerador-reclameaqui.py` scrapa reclamacoes de 8 gateways pra encontrar ofertas escaladas.
+O `minerador-reclameaqui.py` scrapa reclamacoes em gateways de pagamento pra encontrar ofertas escaladas.
 
 ```bash
-# Todos os 8 gateways
+# Todos os gateways suportados
 python minerador-reclameaqui.py
 
 # Gateways especificos
-python minerador-reclameaqui.py wiapy,cakto,kirvano 10 15
+python minerador-reclameaqui.py cakto,kirvano 10 15
 ```
 
 Requer Edge instalado. Resultados salvos em `./mineracao/`.

@@ -28,7 +28,6 @@ GATEWAYS = {
     "doppus": "doppus",
     "lastlink": "lastlink",
     "digital-manager-guru": "digital-manager-guru",
-    "wiapy": "wiapy",
     "yampi": "yampi",
     "ggcheckout": "ggcheckout",
     "eduzz": "eduzz",
