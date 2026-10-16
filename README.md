@@ -1,4 +1,4 @@
-# /automatico — Low Ticket Automatizado
+# /escala — Escala
 
 Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao de low ticket digital num software interativo. Mineracao de ofertas escaladas, modelagem de funil, geracao de criativos, cadastro em gateway e otimizacao de campanhas — tudo dentro do terminal.
 
@@ -31,7 +31,7 @@ git clone https://github.com/hyrozinho/gatee.git
 3. Copie a skill para a pasta de skills do Claude Code:
 
 ```bash
-cp -r gatee ~/.claude/skills/automatico
+cp -r gatee ~/.claude/skills/escala
 ```
 
 4. Entre na pasta da skill:
@@ -43,13 +43,13 @@ cd gatee
 5. Crie seu arquivo de configuracao:
 
 ```bash
-cp config-automatico.example.json config-automatico.json
+cp config-escala.example.json config-escala.json
 ```
 
 6. Abra o Claude Code e rode o comando da skill:
 
 ```text
-/automatico
+/escala
 ```
 
 7. Dentro da skill, rode `[1] Setup` para fazer a configuracao inicial.

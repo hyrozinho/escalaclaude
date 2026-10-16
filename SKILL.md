@@ -1,20 +1,20 @@
 ---
-name: automatico
-description: Low Ticket Automatizado — software completo pra rodar low ticket no automatico. Mineracao de ofertas escaladas, modelagem de funil, criativos, cadastro em gateway e otimizacao de campanhas. Rodar quando o usuario digitar /automatico.
+name: escala
+description: Escala — software completo pra rodar operacao de low ticket. Mineracao de ofertas escaladas, modelagem de funil, criativos, cadastro em gateway e otimizacao de campanhas. Rodar quando o usuario digitar /escala.
 allowed-tools: [WebFetch, WebSearch, Read, Write, Edit, Glob, Grep, Bash, Agent, AskUserQuestion, Skill, mcp__claude_ai_Higgsfield__*, mcp__claude_ai_Utmify__*]
 ---
 
-# Low Ticket Automatizado
+# Escala
 
-Sistema completo pra rodar operacao de low ticket no automatico. Funciona como um software interativo dentro do Claude Code.
+Sistema completo pra rodar operacao de low ticket. Funciona como um software interativo dentro do Claude Code.
 
 ## Ao iniciar
 
-REGRA ABSOLUTA: assim que o usuario digitar `/automatico`, a PRIMEIRA e UNICA coisa a fazer e imprimir o menu abaixo. NAO rodar nenhuma ferramenta antes (nada de Bash, Glob, Read, Test-Path, ls, verificar config, listar pastas). Sem texto antes, sem texto depois. O menu aparece na cara, instantaneo, como qualquer skill. So usar ferramentas DEPOIS que o usuario escolher um numero.
+REGRA ABSOLUTA: assim que o usuario digitar `/escala`, a PRIMEIRA e UNICA coisa a fazer e imprimir o menu abaixo. NAO rodar nenhuma ferramenta antes (nada de Bash, Glob, Read, Test-Path, ls, verificar config, listar pastas). Sem texto antes, sem texto depois. O menu aparece na cara, instantaneo, como qualquer skill. So usar ferramentas DEPOIS que o usuario escolher um numero.
 
 ```
 ============================================
-   LOW TICKET AUTOMATIZADO v1.0
+   ESCALA v1.0
    by @ogestorsantiago_
 ============================================
 
@@ -346,7 +346,7 @@ MINERACAO VIA RATOADS
 
 Voce ainda nao conectou sua conta RatoAds.
 
-Como aluno do Curso Low Ticket Automatizado, voce tem
+Como aluno do Curso Escala, voce tem
 direito a um trial exclusivo: 3 mineracoes, 3 analises
 e 3 slots de rastreamento por 30 dias.
 
@@ -362,7 +362,7 @@ Pedir email + codigo. POST `https://ratoads.com.br/api/trial/curso`.
 200 = conta criada, salvar no config. 403 = codigo invalido. 409 = email ja existe.
 
 Se [2] — Ja tem conta:
-Pedir email + senha. Salvar em `./config-automatico.json`.
+Pedir email + senha. Salvar em `./config-escala.json`.
 
 Se [3] — Assinar:
 Mostrar URL ratoads.com.br e planos (Starter R$57,90/mes, Premium R$147,90/tri).
@@ -1596,7 +1596,7 @@ Scrapar os criativos reais do concorrente via Apify, transcrever videos, e gerar
 
 ### Pre-requisito
 - Analise do [3] feita (tem page_id do concorrente)
-- Apify token configurado no config-automatico.json
+- Apify token configurado no config-escala.json
 - Produto definido no [3] (nome, preco, angulo)
 
 ### Fluxo
@@ -2791,12 +2791,12 @@ CONTAS:
 2. **dev-browser:** verificar se o script existe em `~/.claude/skills/dev-browser/`
 3. **video-downloader:** verificar se a skill existe em `~/.claude/skills/video-downloader/`
 4. **CapCut:** nao da pra verificar automaticamente — perguntar pro usuario se tem instalado
-5. **Meta Ads (token):** verificar se tem `meta_token` no config-automatico.json e testar com curl GET `https://graph.facebook.com/v21.0/me/adaccounts?access_token=[TOKEN]`
+5. **Meta Ads (token):** verificar se tem `meta_token` no config-escala.json e testar com curl GET `https://graph.facebook.com/v21.0/me/adaccounts?access_token=[TOKEN]`
 6. **MCP Higgsfield:** tentar chamar `balance` — se retornar dados, ta conectado
 7. **MCP Utmify:** tentar chamar `get_dashboards` — se retornar dados, ta conectado
-8. **Apify:** verificar se tem `apify_token` no config-automatico.json
+8. **Apify:** verificar se tem `apify_token` no config-escala.json
 9. **Wiapy:** verificar se consegue acessar wiapy.com via dev-browser (logado?)
-10. **RatoAds:** verificar se tem credenciais no config-automatico.json
+10. **RatoAds:** verificar se tem credenciais no config-escala.json
 
 **Resultado:**
 
@@ -2906,7 +2906,7 @@ Cole seu token de acesso (Access Token):
 Testando conexao...
 ```
 Testar: `curl -s "https://graph.facebook.com/v21.0/me/adaccounts?fields=id,name,account_status&access_token=[TOKEN]"`
-Se OK: salvar `meta_token` no config-automatico.json.
+Se OK: salvar `meta_token` no config-escala.json.
 Se falhar: mostrar erro e instruir.
 
 Se nao tem token:
@@ -2936,7 +2936,7 @@ Token de Acesso > Gerar Token de Longa Duracao.
 Quando tiver o token, cole aqui:
 > [token]
 ```
-Salvar `meta_token` no config-automatico.json e testar.
+Salvar `meta_token` no config-escala.json e testar.
 
 **[5] MCP Higgsfield:**
 ```
@@ -2969,7 +2969,7 @@ Se sim:
   Cole seu API token (encontra em apify.com > Settings > Integrations):
   > [token]
 
-Salvando em config-automatico.json...
+Salvando em config-escala.json...
 Testando conexao...
 ```
 
@@ -3068,7 +3068,7 @@ RESETAR
 O que quer resetar?
   [1] Credenciais do RatoAds
   [2] Token do Apify
-  [3] Tudo (apagar config-automatico.json)
+  [3] Tudo (apagar config-escala.json)
 
 Qual opcao?
 ```
@@ -3082,7 +3082,7 @@ Tem certeza? (s/n)
 > [resposta]
 ```
 
-Se sim, deletar `./config-automatico.json`.
+Se sim, deletar `./config-escala.json`.
 
 ---
 
@@ -3090,7 +3090,7 @@ Se sim, deletar `./config-automatico.json`.
 
 NUNCA verificar config, rodar diagnostico ou usar qualquer ferramenta antes de mostrar o menu. O menu sempre aparece primeiro e instantaneo (ver "Ao iniciar").
 
-O setup de primeira vez NAO e automatico — e a opcao [1] Setup & Diagnostico do menu. Se for a primeira vez do usuario, ele escolhe [1]. O `./config-automatico.json` so e lido/criado dentro dos fluxos [1] Setup ou [9] Configuracoes, nunca na abertura.
+O setup de primeira vez NAO e automatico — e a opcao [1] Setup & Diagnostico do menu. Se for a primeira vez do usuario, ele escolhe [1]. O `./config-escala.json` so e lido/criado dentro dos fluxos [1] Setup ou [9] Configuracoes, nunca na abertura.
 
 ---
 
