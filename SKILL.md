@@ -220,10 +220,11 @@ Mostrar palavras-chave curadas do nicho escolhido. O usuario escolhe uma ou digi
 
 **[1] Geral:**
 ```
-  1. pack                     5. +1000
-  2. mega pack                6. acervo completo
-  3. kit completo             7. combo
-  4. +500                     8. moldes prontos
+  1. pack                     6. combo
+  2. mega pack                7. atividades
+  3. kit completo             8. projetos
+  4. +500                     9. R$19,90
+  5. +1000                   10. R$9,90
 ```
 
 **[2] Saude / Emagrecimento:**
