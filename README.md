@@ -2,7 +2,7 @@
 
 Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao de low ticket digital num software interativo. Mineracao de ofertas escaladas, modelagem de funil, geracao de criativos e otimizacao de campanhas — tudo dentro do terminal.
 
-**by [@ogestorsantiago_](https://instagram.com/ogestorsantiago_)**
+**by [@yuri.mkt7](https://instagram.com/yuri.mkt7) e [@miguelmkt8](https://instagram.com/miguelmkt8)**
 
 ## O que faz
 
@@ -14,7 +14,7 @@ Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao d
 | [4] Entregavel | Gera PDF/pack/planilha/simulado completo |
 | [5] Funil | Modela pagina de vendas a partir do concorrente |
 | [6] Criativos | Scrapa ads reais, transcreve, gera 7 criativos modelados |
-| [7] Meta Ads | Cria pixel, campanha e otimiza (metodo @ogestorsantiago_) |
+| [7] Meta Ads | Cria pixel, campanha e otimiza (metodo @yuri.mkt7 e @miguelmkt8) |
 | [8] Config | Diagnostico, instalacao, metricas |
 
 ## Como instalar (passo a passo)
@@ -24,19 +24,19 @@ Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao d
 2. No terminal, clone o repositorio da skill:
 
 ```bash
-git clone https://github.com/hyrozinho/gatee.git
+git clone https://github.com/hyrozinho/escalaclaude.git
 ```
 
 3. Copie a skill para a pasta de skills do Claude Code:
 
 ```bash
-cp -r gatee ~/.claude/skills/escala
+cp -r escalaclaude ~/.claude/skills/escala
 ```
 
 4. Entre na pasta da skill:
 
 ```bash
-cd gatee
+cd escalaclaude
 ```
 
 5. Crie seu arquivo de configuracao:
